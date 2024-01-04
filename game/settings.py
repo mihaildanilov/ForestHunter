@@ -1,0 +1,7 @@
+
+SCREEN_WIDTH = 928
+SCREEN_HEIGHT = 643
+
+AUTHOR ="Mihails Daņilovs, md22039"
+
+CLICK = False
