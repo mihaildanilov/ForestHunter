@@ -15,7 +15,8 @@ pygame.display.set_icon(icon)
 
 win = pygame.display.set_mode((screenWidht, screenHeight))
 pygame.display.set_caption("Forest hunter")
-fontObj = pygame.font.Font('resources/fonts/Frikativ.ttf', 50)
+
+fontObj = assets.load_fonts()['main_font']
 
 bg = pygame.image.load("resources/sprites/bg/gameBg.png")
 mainMenuBg = pygame.image.load("resources/sprites/bg/mainMenuBg.png")
@@ -95,7 +96,7 @@ class Player(object):
                 win.blit(self.heroStandingCoatL, (self.x, self.y))
 
         self.hitbox = (self.x, self.y, 40, 50)
-        pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # HITBOX
+        # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # PLAYER HITBOX comment to make invisible
 
     def hit(self):
         self.isJump = False
@@ -117,6 +118,7 @@ class Player(object):
                     i = 301
                     pygame.quit()
 
+
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
         self.x = x
@@ -132,6 +134,8 @@ class projectile(object):
 
 
 class Enemy():
+    MAX_HEALTH_BAR_WIDTH = 50
+
     def __init__(self, x, y, enemy_width, enemy_height,  end, hitbox_width, hitbox_height, enemyType='first', health=10):
         self.x = x
         self.y = y
@@ -156,20 +160,26 @@ class Enemy():
         if self.visible:
             if self.walkCount + 1 >= 24:
                 self.walkCount = 0
-
             if self.vel > 0:
                 win.blit(self.walkRight[self.walkCount//3], (self.x, self.y))
                 self.walkCount += 1
             else:
                 win.blit(self.walkLeft[self.walkCount//3], (self.x, self.y))
                 self.walkCount += 1
-            pygame.draw.rect(win, (255, 0, 0),
-                             (self.hitbox[0] + 7, self.hitbox[1] - 20, 50, 10))
-            pygame.draw.rect(
-                win, (0, 128, 0), (self.hitbox[0] + 7, self.hitbox[1] - 20, 50 - (1 * (50 - self.health)), 10))
+
+            # Calculate health bar position
+            health_bar_x = self.x + self.width // 2 - Enemy.MAX_HEALTH_BAR_WIDTH // 2
+            health_bar_y = self.y - 20  # 20 pixels above the enemy
+
+            # Draw health bars
+            pygame.draw.rect(win, (255, 0, 0), (health_bar_x,
+                             health_bar_y, Enemy.MAX_HEALTH_BAR_WIDTH, 10))  # Red bar
+            pygame.draw.rect(win, (0, 128, 0), (health_bar_x, health_bar_y, int(
+                Enemy.MAX_HEALTH_BAR_WIDTH * (self.health / self.start_health)), 10))  # Green bar
+
             self.hitbox = (self.x, self.y, self.hitbox_width,
                            self.hitbox_height)
-            pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # HITBOX
+            # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # HITBOX
 
     def move(self):
         if self.vel > 0:
@@ -195,20 +205,20 @@ class Enemy():
             self.visible = False
             for bullet in bullets:
                 bullets.remove(bullet)
-
         pass
 
 
 def redrawGameWindow():
     global bullets
-    win.blit(bg, (0, -150))  # y = -150
-    text = font.render('Score: ' + str(score), 1, (45, 84, 145))
+    win.blit(bg, (0, -150))  # background image pushed by 150 pixels up
+    text = font.render('Score: ' + str(score), 1, (45, 84, 145))  # score text
     bulletsLeft = font.render(
-        "Bullets left " + str(bulletsCountLeft) + "  /  " + str(allBullets), 1, (45, 84, 145))
-    win.blit(text, ((screenWidht - 150), 10))
+        "Bullets left " + str(bulletsCountLeft) + "  /  " + str(allBullets), 1, (45, 84, 145))  # bullets left text
+    win.blit(text, ((screenWidht - 150), 10))  # score text position
+    # bullets left text position
     win.blit(bulletsLeft, ((screenWidht - 500), 10))
-    man.draw(win)
-    enemy.draw(win)
+    man.draw(win)   # player draw
+    enemy.draw(win)  # enemy draw
     for bullet in bullets:
         bullet.draw(win)
 
@@ -216,13 +226,13 @@ def redrawGameWindow():
 
 
 def draw_text(text, font, color, surface, x, y):
-    textobj = fontObj.render(text, 1, color)
-    textrect = textobj.get_rect()
-    textrect.topleft = (x, y)
-    surface.blit(textobj, textrect)
+    obj = font.render(text, 1, color)
+    rect = obj.get_rect()
+    rect.topleft = (x, y)
+    surface.blit(obj, rect)
 
 
-global click
+global click, enemyPick, score, bulletsCountLeft, allBullets
 click = False
 
 
@@ -255,7 +265,7 @@ def fadeStart():
 
 
 global fontObj1
-fontObj1 = pygame.font.SysFont('comicsans', 30, True)
+fontObj1 = assets.load_fonts()['sys_font']
 
 
 def credits():
@@ -284,9 +294,6 @@ def credits():
 
         pygame.display.update()
         mainClock.tick(24)
-
-
-global enemyPick, score
 
 
 def main_menu():
@@ -321,13 +328,10 @@ def main_menu():
                 fade()
                 credits()
                 fadeStart()
-                global fontObj1
-                fontObj1 = pygame.font.SysFont('comicsans', 30, True)
 
         if button_3.collidepoint((mx, my)):
             if click:
                 fade()
-                run = False
                 main_menuRunning = False
                 pygame.quit()
                 sys.exit()
@@ -356,7 +360,8 @@ def main_menu():
         mainClock.tick(24)
 
 # mainloop
-        
+
+
 enemyPick = 1
 score = 0
 font = pygame.font.SysFont('comicsans', 30, True)
@@ -385,7 +390,7 @@ def game():
         enemy = Enemy(enemy_x, 530, 64, 64, enemyPathInPx, 33, 58, 'first', 10)
 
     elif enemyPick == 2:
-        enemy = Enemy(enemy_x, 530, 90, 90, enemyPathInPx,
+        enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx,
                       120, 100, 'second', 20)
     elif enemyPick == 3:
         enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx, 57, 90, 'third', 30)

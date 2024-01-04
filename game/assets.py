@@ -20,13 +20,14 @@ def load_sound(path):
         return pygame.mixer.Sound(full_path)
     else:
         raise FileNotFoundError(f"Unable to find {full_path}")
-    
+
+
 def load_music(path):
     full_path = os.path.join(RESOURCES_DIR, path)
     if os.path.exists(full_path):
         return pygame.mixer.music.load(full_path)
     else:
-        raise FileNotFoundError(f"Unable to find {full_path}")    
+        raise FileNotFoundError(f"Unable to find {full_path}")
 
 
 def load_font(path, size):
@@ -93,7 +94,7 @@ def load_sprites():
 
 
 def load_fonts():
-    frikativ = load_font('fonts/Frikativ.ttf', 20)
+    frikativ = load_font('fonts/Frikativ.ttf', 50)
     sys_font = pygame.font.SysFont('comicsans', 30, True)
     return {
         'main_font': frikativ,
