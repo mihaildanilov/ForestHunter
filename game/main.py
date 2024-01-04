@@ -356,10 +356,8 @@ def main_menu():
         mainClock.tick(24)
 
 # mainloop
-
-
-# !TODO Change to 1 after testing
-enemyPick = 3
+        
+enemyPick = 1
 score = 0
 font = pygame.font.SysFont('comicsans', 30, True)
 bulletsCountLeft = 5
