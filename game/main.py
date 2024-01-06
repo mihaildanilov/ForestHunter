@@ -1,4 +1,3 @@
-from collections.abc import KeysView
 from pygame.locals import *
 import pygame
 import random
@@ -290,7 +289,7 @@ def credits():
 
 def main_menu():
     fadeStart()
-
+    click = False
     main_menuRunning = True
     while main_menuRunning:
 
