@@ -95,10 +95,10 @@ def load_sprites():
 
 def load_fonts():
     frikativ = load_font('fonts/Frikativ.ttf', 50)
-    sys_font = pygame.font.SysFont('comicsans', 30, True)
+    comicsans = pygame.font.SysFont('comicsans', 30, True)
     return {
         'main_font': frikativ,
-        'sys_font': sys_font
+        'comicsans': comicsans
     }
 
 

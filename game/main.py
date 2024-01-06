@@ -4,38 +4,37 @@ import pygame
 import random
 import sys
 import assets
-from settings import SCREEN_WIDTH
+from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 pygame.init()
-
-screenWidht = 928
-screenHeight = 643
 
 icon = pygame.image.load("resources/sprites/icon/robe5.png")
 pygame.display.set_icon(icon)
 
-win = pygame.display.set_mode((screenWidht, screenHeight))
+win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Forest hunter")
 
-fontObj = assets.load_fonts()['main_font']
+main_font = assets.load_fonts()['main_font']
+comicsans = assets.load_fonts()['comicsans']
 
 bg = pygame.image.load("resources/sprites/bg/gameBg.png")
 mainMenuBg = pygame.image.load("resources/sprites/bg/mainMenuBg.png")
 
 sprites = assets.load_sprites()
 
-
 mainClock = pygame.time.Clock()
 
-font = pygame.font.SysFont(None, 20)
-
-
 sounds = assets.load_sounds()
-
 hitSound = sounds['hit_sound']
 music = sounds['background_music']
 pygame.mixer.music.set_volume(0.01)
+hitSound.set_volume(0.01)
 pygame.mixer.music.play(loops=-1)
 
+enemyPick = 1
+score = 0
+bulletsCountLeft = 5
+allBullets = 695
+click = False
 
 class Player(object):
 
@@ -101,12 +100,12 @@ class Player(object):
     def hit(self):
         self.isJump = False
         self.jumpCount = 11
-        self.x = random.randrange(screenWidht//2 - 100)
+        self.x = random.randrange(SCREEN_WIDTH//2 - 100)
         self.y = 528
         self.walkCount = 0
         font1 = pygame.font.SysFont('comicsans', 100)
         text = font1.render('-5', 1, (255, 0, 0))
-        win.blit(text, (((screenWidht/2) - (text.get_width()/2)), 200))
+        win.blit(text, (((SCREEN_WIDTH/2) - (text.get_width()/2)), 200))
 
         pygame.display.update()
         i = 0
@@ -117,7 +116,6 @@ class Player(object):
                 if event.type == pygame.QUIT:
                     i = 301
                     pygame.quit()
-
 
 class projectile(object):
     def __init__(self, x, y, radius, color, facing):
@@ -211,12 +209,13 @@ class Enemy():
 def redrawGameWindow():
     global bullets
     win.blit(bg, (0, -150))  # background image pushed by 150 pixels up
-    text = font.render('Score: ' + str(score), 1, (45, 84, 145))  # score text
-    bulletsLeft = font.render(
+    text = comicsans.render('Score: ' + str(score), 1,
+                            (45, 84, 145))  # score text
+    bulletsLeft = comicsans.render(
         "Bullets left " + str(bulletsCountLeft) + "  /  " + str(allBullets), 1, (45, 84, 145))  # bullets left text
-    win.blit(text, ((screenWidht - 150), 10))  # score text position
+    win.blit(text, ((SCREEN_WIDTH - 200), 10))  # score text position
     # bullets left text position
-    win.blit(bulletsLeft, ((screenWidht - 500), 10))
+    win.blit(bulletsLeft, ((SCREEN_WIDTH - 550), 10))
     man.draw(win)   # player draw
     enemy.draw(win)  # enemy draw
     for bullet in bullets:
@@ -232,12 +231,8 @@ def draw_text(text, font, color, surface, x, y):
     surface.blit(obj, rect)
 
 
-global click, enemyPick, score, bulletsCountLeft, allBullets
-click = False
-
-
 def fade():
-    fade = pygame.Surface((screenWidht, screenHeight))
+    fade = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     fade.fill((0, 0, 0))
     for alpha in range(0, 255):
         fade.set_alpha(alpha)
@@ -247,25 +242,22 @@ def fade():
 
 
 def fadeStart():
-    fadeStart = pygame.Surface((screenWidht, screenHeight))
+    fadeStart = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     fadeStart.fill((0, 0, 0))
     for alpha in range(255, 0, -5):
         fadeStart.set_alpha(alpha)
         win.blit(mainMenuBg, (0, 0))
-        draw_text('main menu', fontObj, (255, 255, 255),
-                  win, screenWidht / 2 - 137, 72)
-        draw_text('Play!', fontObj, (255, 255, 255),
-                  win, screenWidht/2 - 56, 165)
-        draw_text('Credits', fontObj, (255, 255, 255),
-                  win, screenWidht/2 - 92, 266)
-        draw_text('Exit', fontObj, (255, 255, 255), win, screenWidht/2-43, 366)
+        draw_text('main menu', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH / 2 - 137, 72)
+        draw_text('Play!', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2 - 56, 165)
+        draw_text('Credits', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2 - 92, 266)
+        draw_text('Exit', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2-43, 366)
         win.blit(fadeStart, (0, 0))
         pygame.display.update()
         pygame.event.pump()
-
-
-global fontObj1
-fontObj1 = assets.load_fonts()['sys_font']
 
 
 def credits():
@@ -274,12 +266,12 @@ def credits():
     while running:
         win.fill((0, 0, 0))
 
-        draw_text('Credits', fontObj1, (255, 255, 255),
-                  win, screenWidht/2 - 80, 50)
-        draw_text('Created by Mihails Danilovs', fontObj1, (255, 255,
-                  255), win, screenWidht/2 - 325, screenHeight/2 - 100)
-        draw_text('md22039', fontObj1, (255, 255, 255), win,
-                  screenWidht/2 - 115, screenHeight/2 + 50)
+        draw_text('Credits', comicsans, (255, 255, 255),
+                  win, SCREEN_WIDTH/2 - 40, 50)
+        draw_text('Created by Mihails Danilovs', comicsans, (255, 255,
+                  255), win, SCREEN_WIDTH/2 - 190, SCREEN_HEIGHT/2 - 100)
+        draw_text('md22039', comicsans, (255, 255, 255), win,
+                  SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2 - 30)
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -300,17 +292,17 @@ def main_menu():
     fadeStart()
 
     main_menuRunning = True
-    global click
     while main_menuRunning:
 
         win.blit(mainMenuBg, (0, 0))
-        draw_text('main menu', fontObj, (255, 255, 255),
-                  win, screenWidht / 2 - 137, 72)
-        draw_text('Play!', fontObj, (255, 255, 255),
-                  win, screenWidht/2 - 56, 165)
-        draw_text('Credits', fontObj, (255, 255, 255),
-                  win, screenWidht/2 - 92, 266)
-        draw_text('Exit', fontObj, (255, 255, 255), win, screenWidht/2-43, 366)
+        draw_text('main menu', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH / 2 - 137, 72)
+        draw_text('Play!', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2 - 56, 165)
+        draw_text('Credits', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2 - 92, 266)
+        draw_text('Exit', main_font, (255, 255, 255),
+                  win, SCREEN_WIDTH/2-43, 366)
 
         mx, my = pygame.mouse.get_pos()
 
@@ -360,13 +352,6 @@ def main_menu():
         mainClock.tick(24)
 
 # mainloop
-
-
-enemyPick = 1
-score = 0
-font = pygame.font.SysFont('comicsans', 30, True)
-bulletsCountLeft = 5
-allBullets = 695
 
 
 def game():
@@ -453,7 +438,7 @@ def game():
             if bulletsCountLeft == 0:
                 allBullets -= 5
                 bulletsCountLeft = 5
-            if bullet.x < screenWidht and bullet.x > 0:
+            if bullet.x < SCREEN_WIDTH and bullet.x > 0:
                 bullet.x += bullet.vel
 
             else:
@@ -481,7 +466,7 @@ def game():
             man.right = False
             man.standing = False
 
-        elif keys[pygame.K_RIGHT] and man.x < screenWidht - man.width - man.vel:
+        elif keys[pygame.K_RIGHT] and man.x < SCREEN_WIDTH - man.width - man.vel:
             man.x += man.vel
             man.right = True
             man.left = False
