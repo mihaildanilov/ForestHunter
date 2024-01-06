@@ -7,6 +7,7 @@ from settings import SCREEN_WIDTH
 from init_game import win, mainClock, main_font, comicsans, bg, mainMenuBg, sprites, hitSound
 from game.game_loop import game_loop
 
+
 def main_menu():
     enemyPick = 1
     score = 0
@@ -21,11 +22,11 @@ def main_menu():
         draw_text('main menu', main_font, (255, 255, 255),
                   win, SCREEN_WIDTH / 2 - 137, 72)
         draw_text('Play!', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2 - 56, 165)
+                  win, SCREEN_WIDTH / 2 - 56, 165)
         draw_text('Credits', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2 - 92, 266)
+                  win, SCREEN_WIDTH / 2 - 92, 266)
         draw_text('Exit', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2-43, 366)
+                  win, SCREEN_WIDTH / 2 - 43, 366)
 
         mx, my = pygame.mouse.get_pos()
 
@@ -36,12 +37,13 @@ def main_menu():
         if button_1.collidepoint((mx, my)):
             if click:
                 fade(win)
-                enemyPick, score, bulletsCountLeft,allBullets=game_loop(enemyPick, score, bulletsCountLeft,allBullets)
+                enemyPick, score, bulletsCountLeft, allBullets = game_loop(
+                    enemyPick, score, bulletsCountLeft, allBullets)
 
         if button_2.collidepoint((mx, my)):
             if click:
                 fade(win)
-                credits_screen(win,comicsans,mainClock)
+                credits_screen(win, comicsans, mainClock)
                 fadeStart(win, mainMenuBg, main_font)
 
         if button_3.collidepoint((mx, my)):
@@ -54,7 +56,8 @@ def main_menu():
         # Main menu button hitbox
         # pygame.draw.rect(win, (255, 0, 0), button_1)    #comment to make invisible
         # pygame.draw.rect(win, (255, 0, 0), button_2)    #comment to make invisible
-        # pygame.draw.rect(win, (255, 0, 0), button_3)    #comment to make invisible
+        # pygame.draw.rect(win, (255, 0, 0), button_3)    #comment to make
+        # invisible
 
         click = False
         for event in pygame.event.get():

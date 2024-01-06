@@ -2,17 +2,18 @@ import pygame
 import sys
 import random
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from utils import  fade, redrawGameWindow
+from utils import fade, redrawGameWindow
 from mechanics.projectile import Projectile
 from entities.enemy import Enemy
-from init_game import win, mainClock, comicsans, bg,  sprites, hitSound
+from init_game import win, mainClock, comicsans, bg, sprites, hitSound
 from entities.player import Player
 
-def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
+
+def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
 
     bullets = []
     shootLoop = 0
-    
+
     # Randomly choosen spawn points within these ranges
     player_spawn_range = (50, SCREEN_WIDTH // 4)
     enemy_spawn_range = [SCREEN_WIDTH // 4 + 100, SCREEN_WIDTH - 200]
@@ -22,7 +23,8 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
 
     man = Player(player_x, 528, 64, 64, sprites)
     # Enemy can be created with the following parameters:
-    # Enemy(x, y, enemy_width, enemy_height,  end, hitbox_width, hitbox_height, enemyType='first',health = 10):
+    # Enemy(x, y, enemy_width, enemy_height,  end, hitbox_width,
+    # hitbox_height, enemyType='first',health = 10):
 
     if enemyPick == 1:
         enemy = Enemy(enemy_x, 530, 64, 64, enemyPathInPx,
@@ -58,9 +60,11 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
             # pygame.time.delay(3000)
             run = False
 
-        if enemy.visible == True:
-            if man.hitbox[1] < enemy.hitbox[1] + enemy.hitbox[3] and man.hitbox[1] + man.hitbox[3] > enemy.hitbox[1]:
-                if man.hitbox[0] + man.hitbox[2] > enemy.hitbox[0] and man.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
+        if enemy.visible:
+            if man.hitbox[1] < enemy.hitbox[1] + \
+                    enemy.hitbox[3] and man.hitbox[1] + man.hitbox[3] > enemy.hitbox[1]:
+                if man.hitbox[0] + \
+                        man.hitbox[2] > enemy.hitbox[0] and man.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                     man.hit(win)
                     score -= 5
 
@@ -80,9 +84,11 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
                 sys.exit()
 
         for bullet in bullets:
-            if bullet.y - bullet.radius < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radius > enemy.hitbox[1]:
-                if enemy.visible == True:
-                    if bullet.x + bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
+            if bullet.y - \
+                    bullet.radius < enemy.hitbox[1] + enemy.hitbox[3] and bullet.y + bullet.radius > enemy.hitbox[1]:
+                if enemy.visible:
+                    if bullet.x + \
+                            bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
                         hitSound.play()
                         enemy.hit(bullets)
                         score += 1
@@ -111,8 +117,21 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
                 facing = 1
 
             if len(bullets) < 5:
-                bullets.append(Projectile(round(man.x + man.width // 2),
-                               round(man.y + man.height//2), 3, (255, 255, 255), facing))
+                bullets.append(
+                    Projectile(
+                        round(
+                            man.x +
+                            man.width //
+                            2),
+                        round(
+                            man.y +
+                            man.height //
+                            2),
+                        3,
+                        (255,
+                         255,
+                         255),
+                        facing))
                 shootLoop = 1
 
         if keys[pygame.K_LEFT] and man.x > man.vel:
@@ -147,6 +166,7 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
                 man.isJump = False
                 man.jumpCount = 11
 
-        redrawGameWindow(win,comicsans,score,bulletsCountLeft,allBullets,man,enemy,bullets,bg)
+        redrawGameWindow(win, comicsans, score, bulletsCountLeft,
+                         allBullets, man, enemy, bullets, bg)
 
-    return enemyPick, score, bulletsCountLeft,allBullets
+    return enemyPick, score, bulletsCountLeft, allBullets

@@ -4,7 +4,18 @@ import pygame
 class Enemy():
     MAX_HEALTH_BAR_WIDTH = 50
 
-    def __init__(self, x, y, enemy_width, enemy_height,  end, hitbox_width, hitbox_height, sprites, enemyType='first', health=10):
+    def __init__(
+            self,
+            x,
+            y,
+            enemy_width,
+            enemy_height,
+            end,
+            hitbox_width,
+            hitbox_height,
+            sprites,
+            enemyType='first',
+            health=10):
         self.x = x
         self.y = y
         self.width = enemy_width
@@ -29,10 +40,10 @@ class Enemy():
             if self.walkCount + 1 >= 24:
                 self.walkCount = 0
             if self.vel > 0:
-                win.blit(self.walkRight[self.walkCount//3], (self.x, self.y))
+                win.blit(self.walkRight[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
             else:
-                win.blit(self.walkLeft[self.walkCount//3], (self.x, self.y))
+                win.blit(self.walkLeft[self.walkCount // 3], (self.x, self.y))
                 self.walkCount += 1
 
             # Calculate health bar position
@@ -40,8 +51,15 @@ class Enemy():
             health_bar_y = self.y - 20  # 20 pixels above the enemy
 
             # Draw health bars
-            pygame.draw.rect(win, (255, 0, 0), (health_bar_x,
-                             health_bar_y, Enemy.MAX_HEALTH_BAR_WIDTH, 10))  # Red bar
+            pygame.draw.rect(
+                win,
+                (255,
+                 0,
+                 0),
+                (health_bar_x,
+                 health_bar_y,
+                 Enemy.MAX_HEALTH_BAR_WIDTH,
+                 10))  # Red bar
             pygame.draw.rect(win, (0, 128, 0), (health_bar_x, health_bar_y, int(
                 Enemy.MAX_HEALTH_BAR_WIDTH * (self.health / self.start_health)), 10))  # Green bar
 
@@ -66,7 +84,7 @@ class Enemy():
                 self.walkCount = 0
         # print('hit')
 
-    def hit(self,bullets):
+    def hit(self, bullets):
         if self.health > 1:
             self.health -= 1
         else:

@@ -58,29 +58,47 @@ def load_sprites():
         'standing-coat-left': load_image('sprites/coat/LEFT/standingCoatL.png')
     }
     first_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/firstEnemy/RIGHT', num_sprites=8),
-        'left': load_sprites_from_folder('sprites/enemies/firstEnemy/LEFT', num_sprites=8)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/firstEnemy/RIGHT',
+            num_sprites=8),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/firstEnemy/LEFT',
+            num_sprites=8)}
     second_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/secondEnemy/RIGHT', num_sprites=10),
-        'left': load_sprites_from_folder('sprites/enemies/secondEnemy/LEFT', num_sprites=10)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/secondEnemy/RIGHT',
+            num_sprites=10),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/secondEnemy/LEFT',
+            num_sprites=10)}
     third_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/thirdEnemy/RIGHT', num_sprites=8),
-        'left': load_sprites_from_folder('sprites/enemies/thirdEnemy/LEFT', num_sprites=8)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/thirdEnemy/RIGHT',
+            num_sprites=8),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/thirdEnemy/LEFT',
+            num_sprites=8)}
     fourth_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/fourthEnemy/RIGHT', num_sprites=8),
-        'left': load_sprites_from_folder('sprites/enemies/fourthEnemy/LEFT', num_sprites=8)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/fourthEnemy/RIGHT',
+            num_sprites=8),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/fourthEnemy/LEFT',
+            num_sprites=8)}
     fifth_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/fifthEnemy/RIGHT', num_sprites=8),
-        'left': load_sprites_from_folder('sprites/enemies/fifthEnemy/LEFT', num_sprites=8)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/fifthEnemy/RIGHT',
+            num_sprites=8),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/fifthEnemy/LEFT',
+            num_sprites=8)}
     sixth_enemy = {
-        'right': load_sprites_from_folder('sprites/enemies/sixthEnemy/RIGHT', num_sprites=16),
-        'left': load_sprites_from_folder('sprites/enemies/sixthEnemy/LEFT', num_sprites=16)
-    }
+        'right': load_sprites_from_folder(
+            'sprites/enemies/sixthEnemy/RIGHT',
+            num_sprites=16),
+        'left': load_sprites_from_folder(
+            'sprites/enemies/sixthEnemy/LEFT',
+            num_sprites=16)}
 
     return {
         'hero': hero_sprites,

@@ -1,5 +1,6 @@
 import pygame
 
+
 class Projectile(object):
     def __init__(self, x, y, radius, color, facing):
         self.x = x
@@ -10,4 +11,4 @@ class Projectile(object):
         self.vel = 10 * facing
 
     def draw(self, win):
-        pygame.draw.circle(win, self.color, (self.x, self.y-23), self.radius)
+        pygame.draw.circle(win, self.color, (self.x, self.y - 23), self.radius)

@@ -1,6 +1,6 @@
 import pygame
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from assets import assets 
+from assets import assets
 
 pygame.init()
 

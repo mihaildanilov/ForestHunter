@@ -6,7 +6,7 @@ from settings import SCREEN_WIDTH
 
 class Player(object):
 
-    def __init__(self, x, y, width, height,sprites):
+    def __init__(self, x, y, width, height, sprites):
         self.x = x
         self.y = y
         self.width = width
@@ -42,15 +42,15 @@ class Player(object):
         if not (self.standing):
             if self.left:
                 win.blit(
-                    self.heroWalkLeft[self.walkCount//3], (self.x, self.y))
-                win.blit(self.heroCoatLeft[self.coat//3], (self.x, self.y))
+                    self.heroWalkLeft[self.walkCount // 3], (self.x, self.y))
+                win.blit(self.heroCoatLeft[self.coat // 3], (self.x, self.y))
                 win.blit
                 self.walkCount += 1
                 self.coat += 1
             elif self.right:
                 win.blit(
-                    self.heroWalkRight[self.walkCount//3], (self.x, self.y))
-                win.blit(self.heroCoatRight[self.coat//3], (self.x, self.y))
+                    self.heroWalkRight[self.walkCount // 3], (self.x, self.y))
+                win.blit(self.heroCoatRight[self.coat // 3], (self.x, self.y))
                 self.walkCount += 1
                 self.coat += 1
         else:
@@ -63,17 +63,18 @@ class Player(object):
                 win.blit(self.heroStandingCoatL, (self.x, self.y))
 
         self.hitbox = (self.x, self.y, 40, 50)
-        # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # PLAYER HITBOX comment to make invisible
+        # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # PLAYER HITBOX
+        # comment to make invisible
 
-    def hit(self,win):
+    def hit(self, win):
         self.isJump = False
         self.jumpCount = 11
-        self.x = random.randrange(SCREEN_WIDTH//2 - 100)
+        self.x = random.randrange(SCREEN_WIDTH // 2 - 100)
         self.y = 528
         self.walkCount = 0
         font1 = pygame.font.SysFont('comicsans', 100)
         text = font1.render('-5', 1, (255, 0, 0))
-        win.blit(text, (((SCREEN_WIDTH/2) - (text.get_width()/2)), 200))
+        win.blit(text, (((SCREEN_WIDTH / 2) - (text.get_width() / 2)), 200))
 
         pygame.display.update()
         i = 0
