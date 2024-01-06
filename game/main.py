@@ -4,6 +4,7 @@ import random
 import sys
 import assets
 from enemy import Enemy
+from screens.credits import credits_screen
 from game_functions import draw_text, fade, fadeStart, redrawGameWindow
 from player import Player
 from projectile import Projectile
@@ -40,33 +41,6 @@ bulletsCountLeft = 5
 allBullets = 695
 click = False
 
-def credits():
-    running = True
-
-    while running:
-        win.fill((0, 0, 0))
-
-        draw_text('Credits', comicsans, (255, 255, 255),
-                  win, SCREEN_WIDTH/2 - 40, 50)
-        draw_text('Created by Mihails Danilovs', comicsans, (255, 255,
-                  255), win, SCREEN_WIDTH/2 - 190, SCREEN_HEIGHT/2 - 100)
-        draw_text('md22039', comicsans, (255, 255, 255), win,
-                  SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2 - 30)
-
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                fade(win)
-
-                sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    fade(win)
-                    running = False
-
-        pygame.display.update()
-        mainClock.tick(24)
-
 
 def main_menu():
     fadeStart(win, mainMenuBg, main_font)
@@ -98,7 +72,7 @@ def main_menu():
         if button_2.collidepoint((mx, my)):
             if click:
                 fade(win)
-                credits()
+                credits_screen(win,comicsans,mainClock)
                 fadeStart(win, mainMenuBg, main_font)
 
         if button_3.collidepoint((mx, my)):
