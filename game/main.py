@@ -3,7 +3,9 @@ import pygame
 import random
 import sys
 import assets
+from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
+
 pygame.init()
 
 win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -116,18 +118,6 @@ class Player(object):
                     i = 301
                     pygame.quit()
 
-class projectile(object):
-    def __init__(self, x, y, radius, color, facing):
-        self.x = x
-        self.y = y
-        self.radius = radius
-        self.color = color
-        self.facing = facing
-        self.vel = 10 * facing
-
-    def draw(self, win):
-
-        pygame.draw.circle(win, self.color, (self.x, self.y-23), self.radius)
 
 
 class Enemy():
@@ -455,7 +445,7 @@ def game():
                 facing = 1
 
             if len(bullets) < 5:
-                bullets.append(projectile(round(man.x + man.width // 2),
+                bullets.append(Projectile(round(man.x + man.width // 2),
                                round(man.y + man.height//2), 3, (255, 255, 255), facing))
                 shootLoop = 1
 
