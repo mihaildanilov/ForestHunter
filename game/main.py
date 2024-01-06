@@ -3,6 +3,7 @@ import pygame
 import random
 import sys
 import assets
+from enemy import Enemy
 from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -38,80 +39,6 @@ bulletsCountLeft = 5
 allBullets = 695
 click = False
 
-
-class Enemy():
-    MAX_HEALTH_BAR_WIDTH = 50
-
-    def __init__(self, x, y, enemy_width, enemy_height,  end, hitbox_width, hitbox_height, enemyType='first', health=10):
-        self.x = x
-        self.y = y
-        self.width = enemy_width
-        self.height = enemy_height
-        self.path = [x, end]
-        self.walkCount = 0
-        self.vel = 3
-        self.hitbox = (self.x, self.y, hitbox_width, hitbox_height)
-        self.health = health
-        self.start_health = health
-        self.visible = True
-        self.enemyType = enemyType
-        self.enemy_sprites = sprites[self.enemyType]
-        self.walkRight = self.enemy_sprites['right']
-        self.walkLeft = self.enemy_sprites['left']
-        self.hitbox_width = hitbox_width
-        self.hitbox_height = hitbox_height
-
-    def draw(self, win):
-        self.move()
-        if self.visible:
-            if self.walkCount + 1 >= 24:
-                self.walkCount = 0
-            if self.vel > 0:
-                win.blit(self.walkRight[self.walkCount//3], (self.x, self.y))
-                self.walkCount += 1
-            else:
-                win.blit(self.walkLeft[self.walkCount//3], (self.x, self.y))
-                self.walkCount += 1
-
-            # Calculate health bar position
-            health_bar_x = self.x + self.width // 2 - Enemy.MAX_HEALTH_BAR_WIDTH // 2
-            health_bar_y = self.y - 20  # 20 pixels above the enemy
-
-            # Draw health bars
-            pygame.draw.rect(win, (255, 0, 0), (health_bar_x,
-                             health_bar_y, Enemy.MAX_HEALTH_BAR_WIDTH, 10))  # Red bar
-            pygame.draw.rect(win, (0, 128, 0), (health_bar_x, health_bar_y, int(
-                Enemy.MAX_HEALTH_BAR_WIDTH * (self.health / self.start_health)), 10))  # Green bar
-
-            self.hitbox = (self.x, self.y, self.hitbox_width,
-                           self.hitbox_height)
-            # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # HITBOX
-
-    def move(self):
-        if self.vel > 0:
-            if self.x < self.path[1] + self.vel:
-                self.x += self.vel
-            else:
-                self.vel = self.vel * -1
-                self.x += self.vel
-                self.walkCount = 0
-        else:
-            if self.x > self.path[0] - self.vel:
-                self.x += self.vel
-            else:
-                self.vel = self.vel * -1
-                self.x += self.vel
-                self.walkCount = 0
-        # print('hit')
-
-    def hit(self):
-        if self.health > 1:
-            self.health -= 1
-        else:
-            self.visible = False
-            for bullet in bullets:
-                bullets.remove(bullet)
-        pass
 
 
 def redrawGameWindow():
@@ -275,28 +202,30 @@ def game():
     enemy_x = random.randrange(*enemy_spawn_range)
     enemyPathInPx = enemy_x + 200
 
-    man = Player(player_x, 528, 64, 64,sprites)
+    man = Player(player_x, 528, 64, 64, sprites)
     # Enemy can be created with the following parameters:
     # Enemy(x, y, enemy_width, enemy_height,  end, hitbox_width, hitbox_height, enemyType='first',health = 10):
 
     if enemyPick == 1:
-        enemy = Enemy(enemy_x, 530, 64, 64, enemyPathInPx, 33, 58, 'first', 10)
+        enemy = Enemy(enemy_x, 530, 64, 64, enemyPathInPx,
+                      33, 58, sprites, 'first', 10)
 
     elif enemyPick == 2:
         enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx,
-                      120, 100, 'second', 20)
+                      120, 100, sprites, 'second', 20)
     elif enemyPick == 3:
-        enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx, 57, 90, 'third', 30)
+        enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx,
+                      57, 90, sprites, 'third', 30)
 
     elif enemyPick == 4:
         enemy = Enemy(enemy_x, 490, 90, 90,
-                      enemyPathInPx, 80, 100, 'fourth', 50)
+                      enemyPathInPx, 80, 100, sprites, 'fourth', 50)
     elif enemyPick == 5:
         enemy = Enemy(enemy_x, 490, 90, 90,
-                      enemyPathInPx, 64, 120, 'fifth', 75)
+                      enemyPathInPx, 64, 120, sprites, 'fifth', 75)
     elif enemyPick >= 6:
         enemy = Enemy(enemy_x, 490, 90, 90,
-                      enemyPathInPx, 64, 120, 'sixth', 100)
+                      enemyPathInPx, 64, 120, sprites, 'sixth', 100)
 
     run = True
     while run:
@@ -337,7 +266,7 @@ def game():
                 if enemy.visible == True:
                     if bullet.x + bullet.radius > enemy.hitbox[0] and bullet.x - bullet.radius < enemy.hitbox[0] + enemy.hitbox[2]:
                         hitSound.play()
-                        enemy.hit()
+                        enemy.hit(bullets)
                         score += 1
                         bulletsCountLeft -= 1
                         if bullet in bullets:
