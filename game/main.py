@@ -2,7 +2,7 @@ from pygame.locals import *
 import pygame
 import random
 import sys
-import assets
+import assets.assets as assets
 from characters.enemy import Enemy
 from characters.player import Player
 from screens.credits import credits_screen

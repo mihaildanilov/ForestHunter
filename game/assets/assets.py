@@ -3,7 +3,7 @@ import pygame
 import os
 
 # Path to the resources directory
-RESOURCES_DIR = os.path.join(os.path.dirname(__file__), '..', 'resources')
+RESOURCES_DIR = os.path.join(os.path.dirname(__file__), '../..', 'resources')
 
 
 def load_image(path):
