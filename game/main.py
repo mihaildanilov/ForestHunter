@@ -3,10 +3,10 @@ import pygame
 import random
 import sys
 import assets
-from enemy import Enemy
+from characters.enemy import Enemy
+from characters.player import Player
 from screens.credits import credits_screen
 from game_functions import draw_text, fade, fadeStart, redrawGameWindow
-from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
