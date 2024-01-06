@@ -4,7 +4,7 @@ import random
 import sys
 import assets
 from enemy import Enemy
-from game_functions import draw_text, fade, redrawGameWindow
+from game_functions import draw_text, fade, fadeStart, redrawGameWindow
 from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -40,25 +40,6 @@ bulletsCountLeft = 5
 allBullets = 695
 click = False
 
-def fadeStart():
-    fadeStart = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-    fadeStart.fill((0, 0, 0))
-    for alpha in range(255, 0, -5):
-        fadeStart.set_alpha(alpha)
-        win.blit(mainMenuBg, (0, 0))
-        draw_text('main menu', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH / 2 - 137, 72)
-        draw_text('Play!', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2 - 56, 165)
-        draw_text('Credits', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2 - 92, 266)
-        draw_text('Exit', main_font, (255, 255, 255),
-                  win, SCREEN_WIDTH/2-43, 366)
-        win.blit(fadeStart, (0, 0))
-        pygame.display.update()
-        pygame.event.pump()
-
-
 def credits():
     running = True
 
@@ -88,7 +69,7 @@ def credits():
 
 
 def main_menu():
-    fadeStart()
+    fadeStart(win, mainMenuBg, main_font)
     click = False
     main_menuRunning = True
     while main_menuRunning:
@@ -118,7 +99,7 @@ def main_menu():
             if click:
                 fade(win)
                 credits()
-                fadeStart()
+                fadeStart(win, mainMenuBg, main_font)
 
         if button_3.collidepoint((mx, my)):
             if click:
