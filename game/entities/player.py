@@ -14,7 +14,7 @@ class Player(object):
         self.vel = 8
         self.isJump = False
         self.left = False
-        self.right = False
+        self.right = True
         self.walkCount = 0
         self.coat = 0
         self.jumpCount = 11
