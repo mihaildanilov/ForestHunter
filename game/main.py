@@ -7,17 +7,17 @@ import assets
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 pygame.init()
 
-icon = pygame.image.load("resources/sprites/icon/robe5.png")
-pygame.display.set_icon(icon)
-
 win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
+icon = assets.load_image("sprites/icon/robe5.png")
+pygame.display.set_icon(icon)
 pygame.display.set_caption("Forest hunter")
 
 main_font = assets.load_fonts()['main_font']
 comicsans = assets.load_fonts()['comicsans']
 
-bg = pygame.image.load("resources/sprites/bg/gameBg.png")
-mainMenuBg = pygame.image.load("resources/sprites/bg/mainMenuBg.png")
+bg = assets.load_image("sprites/bg/gameBg.png")
+mainMenuBg = assets.load_image("sprites/bg/mainMenuBg.png")
 
 sprites = assets.load_sprites()
 
