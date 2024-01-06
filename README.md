@@ -15,7 +15,7 @@ Forest Hunter is a 2D shooter game developed using Python and the Pygame library
 To run Forest Hunter, you need to have Python and Pygame installed on your system.
 
 1. Clone the repository:
-```git clone https://github.com/mihaildanilov/PythonKursaDarbs.git```
+```git clone https://github.com/mihaildanilov/ForestHunter.git```
 
 2. Navigate to the downloaded directory:
 3. Install dependencies (Pygame):
