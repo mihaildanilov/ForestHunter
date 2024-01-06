@@ -6,7 +6,7 @@ import assets.assets as assets
 from entities.enemy import Enemy
 from entities.player import Player
 from screens.credits import credits_screen
-from game_functions import draw_text, fade, fadeStart, redrawGameWindow
+from utils import draw_text, fade, fadeStart, redrawGameWindow
 from mechanics.projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
