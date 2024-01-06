@@ -7,7 +7,7 @@ from entities.enemy import Enemy
 from entities.player import Player
 from screens.credits import credits_screen
 from game_functions import draw_text, fade, fadeStart, redrawGameWindow
-from projectile import Projectile
+from mechanics.projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 
 pygame.init()
@@ -153,7 +153,7 @@ def game():
         if score < 0:
             # win.fill(255,255,255)
             allBullets = 695
-            enemyPick = 0
+            enemyPick = 1
             score = 0
             fade(win)
             # pygame.time.delay(3000)
