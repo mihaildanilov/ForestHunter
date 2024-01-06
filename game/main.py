@@ -4,6 +4,7 @@ import random
 import sys
 import assets
 from enemy import Enemy
+from game_functions import redrawGameWindow
 from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -40,23 +41,6 @@ allBullets = 695
 click = False
 
 
-
-def redrawGameWindow():
-    global bullets
-    win.blit(bg, (0, -150))  # background image pushed by 150 pixels up
-    text = comicsans.render('Score: ' + str(score), 1,
-                            (45, 84, 145))  # score text
-    bulletsLeft = comicsans.render(
-        "Bullets left " + str(bulletsCountLeft) + "  /  " + str(allBullets), 1, (45, 84, 145))  # bullets left text
-    win.blit(text, ((SCREEN_WIDTH - 200), 10))  # score text position
-    # bullets left text position
-    win.blit(bulletsLeft, ((SCREEN_WIDTH - 550), 10))
-    man.draw(win)   # player draw
-    enemy.draw(win)  # enemy draw
-    for bullet in bullets:
-        bullet.draw(win)
-
-    pygame.display.update()
 
 
 def draw_text(text, font, color, surface, x, y):
@@ -331,7 +315,7 @@ def game():
                 man.isJump = False
                 man.jumpCount = 11
 
-        redrawGameWindow()
+        redrawGameWindow(win,comicsans,score,bulletsCountLeft,allBullets,man,enemy,bullets,bg)
 
 
 main_menu()
