@@ -5,8 +5,44 @@ from settings import SCREEN_WIDTH
 
 
 class Player(object):
+    """
+    Represents the player character in the game.
+
+    Attributes:
+        x (int): The x-coordinate of the player's position.
+        y (int): The y-coordinate of the player's position.
+        width (int): The width of the player's sprite.
+        height (int): The height of the player's sprite.
+        vel (int): The velocity of the player's movement.
+        isJump (bool): Indicates whether the player is currently jumping.
+        left (bool): Indicates whether the player is facing left.
+        right (bool): Indicates whether the player is facing right.
+        walkCount (int): The count of frames for walking animation.
+        coat (int): The count of frames for coat animation.
+        jumpCount (int): The count of frames for jumping animation.
+        standing (bool): Indicates whether the player is standing still.
+        hitbox (tuple): The hitbox of the player's sprite.
+        heroWalkRight (list): List of sprites for walking right.
+        heroWalkLeft (list): List of sprites for walking left.
+        heroCoatRight (list): List of sprites for walking right with coat.
+        heroCoatLeft (list): List of sprites for walking left with coat.
+        heroStandingR (Surface): Sprite for standing right.
+        heroStandingL (Surface): Sprite for standing left.
+        heroStandingCoatR (Surface): Sprite for standing right with coat.
+        heroStandingCoatL (Surface): Sprite for standing left with coat.
+    """
 
     def __init__(self, x, y, width, height, sprites):
+        """
+        Initializes a new instance of the Player class.
+
+        Args:
+            x (int): The initial x-coordinate of the player's position.
+            y (int): The initial y-coordinate of the player's position.
+            width (int): The width of the player's sprite.
+            height (int): The height of the player's sprite.
+            sprites (dict): A dictionary containing the player's sprites.
+        """
         self.x = x
         self.y = y
         self.width = width
@@ -32,7 +68,15 @@ class Player(object):
         self.heroStandingCoatL = hero_sprites['standing-coat-left']
 
     def draw(self, win):
+        """
+        Draws the player's sprite on the game window.
 
+        Args:
+            win (Surface): The game window surface.
+
+        Returns:
+            None
+        """
         if self.walkCount + 1 >= 24:
             self.walkCount = 0
 
@@ -54,7 +98,6 @@ class Player(object):
                 self.walkCount += 1
                 self.coat += 1
         else:
-
             if self.right:
                 win.blit(self.heroStandingR, (self.x, self.y))
                 win.blit(self.heroStandingCoatR, (self.x, self.y))
@@ -67,6 +110,15 @@ class Player(object):
         # comment to make invisible
 
     def hit(self, win):
+        """
+        Handles the player being hit.
+
+        Args:
+            win (Surface): The game window surface.
+
+        Returns:
+            None
+        """
         self.isJump = False
         self.jumpCount = 11
         self.x = random.randrange(SCREEN_WIDTH // 2 - 100)

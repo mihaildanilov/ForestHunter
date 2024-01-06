@@ -6,6 +6,17 @@ from utils import fade, draw_text
 
 
 def credits_screen(win, font, mainClock):
+    """
+    Display the credits screen.
+
+    Args:
+        win (pygame.Surface): The game window surface.
+        font (pygame.font.Font): The font used for drawing text.
+        mainClock (pygame.time.Clock): The game clock.
+
+    Returns:
+        None
+    """
     running = True
 
     while running:
@@ -20,8 +31,9 @@ def credits_screen(win, font, mainClock):
 
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
+                running = False
                 fade(win)
+                pygame.quit()
 
                 sys.exit()
             if event.type == KEYDOWN:

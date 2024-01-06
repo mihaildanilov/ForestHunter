@@ -12,6 +12,23 @@ def redrawGameWindow(
         enemy,
         bullets,
         bg):
+    """
+    Redraws the game window with the updated game elements.
+
+    Args:
+        win (pygame.Surface): The game window surface.
+        font (pygame.font.Font): The font used for rendering text.
+        score (int): The current score.
+        bulletsCountLeft (int): The number of bullets left.
+        allBullets (int): The total number of bullets.
+        man (Player): The player object.
+        enemy (Enemy): The enemy object.
+        bullets (list): A list of Bullet objects.
+        bg (pygame.Surface): The background image.
+
+    Returns:
+        None
+    """
     win.blit(bg, (0, -150))  # background image pushed by 150 pixels up
     text = font.render('Score: ' + str(score), 1,
                        (45, 84, 145))  # score text
@@ -36,6 +53,20 @@ def redrawGameWindow(
 
 
 def draw_text(text, font, color, surface, x, y):
+    """
+    Draws text on the specified surface.
+
+    Args:
+        text (str): The text to be displayed.
+        font (pygame.font.Font): The font used for rendering the text.
+        color (tuple): The color of the text in RGB format.
+        surface (pygame.Surface): The surface on which the text will be drawn.
+        x (int): The x-coordinate of the top-left corner of the text.
+        y (int): The y-coordinate of the top-left corner of the text.
+
+    Returns:
+        None
+    """
     obj = font.render(text, 1, color)
     rect = obj.get_rect()
     rect.topleft = (x, y)
@@ -43,6 +74,15 @@ def draw_text(text, font, color, surface, x, y):
 
 
 def fade(win):
+    """
+    Fades the game window to black.
+
+    Args:
+        win (pygame.Surface): The game window surface.
+
+    Returns:
+        None
+    """
     fade = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     fade.fill((0, 0, 0))
     for alpha in range(0, 255):
@@ -53,6 +93,17 @@ def fade(win):
 
 
 def fadeStart(win, mainMenuBg, main_font):
+    """
+    Fades the game window at the start of the game.
+
+    Args:
+        win (pygame.Surface): The game window surface.
+        mainMenuBg (pygame.Surface): The background image for the main menu.
+        main_font (pygame.font.Font): The font used for rendering text in the main menu.
+
+    Returns:
+        None
+    """
     fadeStart = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     fadeStart.fill((0, 0, 0))
     for alpha in range(255, 0, -5):

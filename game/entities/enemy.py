@@ -3,6 +3,28 @@ import pygame
 
 class Enemy():
     MAX_HEALTH_BAR_WIDTH = 50
+    """
+    Represents the enemy character in the game.
+
+    Attributes:
+        x (int): The x-coordinate of the enemy's starting position.
+        y (int): The y-coordinate of the enemy's starting position.
+        width (int): The width of the enemy sprite.
+        height (int): The height of the enemy sprite.
+        path (list): The path of the enemy's movement.
+        walkCount (int): The count of frames for walking animation.
+        vel (int): The velocity of the enemy's movement.
+        hitbox (tuple): The hitbox of the enemy's sprite.
+        health (int): The current health of the enemy.
+        start_health (int): The initial health of the enemy.
+        visible (bool): Indicates whether the enemy is visible.
+        enemyType (str): The type of the enemy.
+        enemy_sprites (dict): The sprites of the enemy.
+        walkRight (list): List of sprites for walking right.
+        walkLeft (list): List of sprites for walking left.
+        hitbox_width (int): The width of the enemy's hitbox.
+        hitbox_height (int): The height of the enemy's hitbox.
+    """
 
     def __init__(
             self,
@@ -16,6 +38,21 @@ class Enemy():
             sprites,
             enemyType='first',
             health=10):
+        """"
+        Initializes a new instance of the Enemy class.
+
+        Args:
+            x (int): The x-coordinate of the enemy's starting position.
+            y (int): The y-coordinate of the enemy's starting position.
+            enemy_width (int): The width of the enemy sprite.
+            enemy_height (int): The height of the enemy sprite.
+            end (int): The x-coordinate of the enemy's ending position.
+            hitbox_width (int): The width of the enemy's hitbox.
+            hitbox_height (int): The height of the enemy's hitbox.
+            sprites (dict): A dictionary containing the enemy sprites for different directions.
+            enemyType (str, optional): The type of the enemy. Defaults to 'first'.
+            health (int, optional): The initial health of the enemy. Defaults to 10.
+        """
         self.x = x
         self.y = y
         self.width = enemy_width
@@ -35,6 +72,15 @@ class Enemy():
         self.hitbox_height = hitbox_height
 
     def draw(self, win):
+        """
+        Draw the enemy on the game window.
+
+        Args:
+            win (pygame.Surface): The game window surface.
+
+        Returns:
+            None
+        """
         self.move()
         if self.visible:
             if self.walkCount + 1 >= 24:
@@ -68,6 +114,12 @@ class Enemy():
             # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)  # HITBOX
 
     def move(self):
+        """
+        Move the enemy along its path.
+
+        Returns:
+            None
+        """
         if self.vel > 0:
             if self.x < self.path[1] + self.vel:
                 self.x += self.vel
@@ -85,6 +137,15 @@ class Enemy():
         # print('hit')
 
     def hit(self, bullets):
+        """
+        Handle the enemy being hit by bullets.
+
+        Args:
+            bullets (list): A list of bullets that hit the enemy.
+
+        Returns:
+            None
+        """
         if self.health > 1:
             self.health -= 1
         else:

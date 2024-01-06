@@ -10,7 +10,21 @@ from entities.player import Player
 
 
 def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
+    """
+    The main game loop that handles the gameplay logic.
 
+    Args:
+        enemyPick (int): The enemy type to spawn.
+        score (int): The current score.
+        bulletsCountLeft (int): The number of bullets left.
+        allBullets (int): The total number of bullets.
+
+    Returns:
+        enemyPick (int): The updated enemy type to spawn.
+        score (int): The updated score.
+        bulletsCountLeft (int): The updated number of bullets left.
+        allBullets (int): The updated total number of bullets.
+    """
     bullets = []
     shootLoop = 0
 
@@ -22,21 +36,16 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
     enemyPathInPx = enemy_x + 200
 
     man = Player(player_x, 528, 64, 64, sprites)
-    # Enemy can be created with the following parameters:
-    # Enemy(x, y, enemy_width, enemy_height,  end, hitbox_width,
-    # hitbox_height, enemyType='first',health = 10):
 
     if enemyPick == 1:
         enemy = Enemy(enemy_x, 530, 64, 64, enemyPathInPx,
                       33, 58, sprites, 'first', 10)
-
     elif enemyPick == 2:
         enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx,
                       120, 100, sprites, 'second', 20)
     elif enemyPick == 3:
         enemy = Enemy(enemy_x, 490, 90, 90, enemyPathInPx,
                       57, 90, sprites, 'third', 30)
-
     elif enemyPick == 4:
         enemy = Enemy(enemy_x, 490, 90, 90,
                       enemyPathInPx, 80, 100, sprites, 'fourth', 50)
@@ -52,12 +61,10 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
         mainClock.tick(30)
 
         if score < 0:
-            # win.fill(255,255,255)
             allBullets = 695
             enemyPick = 1
             score = 0
             fade(win)
-            # pygame.time.delay(3000)
             run = False
 
         if enemy.visible:
@@ -67,7 +74,6 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
                         man.hitbox[2] > enemy.hitbox[0] and man.hitbox[0] < enemy.hitbox[0] + enemy.hitbox[2]:
                     man.hit(win)
                     score -= 5
-
         else:
             enemyPick += 1
             run = False
@@ -101,7 +107,6 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
                 bulletsCountLeft = 5
             if bullet.x < SCREEN_WIDTH and bullet.x > 0:
                 bullet.x += bullet.vel
-
             else:
                 bullets.pop(bullets.index(bullet))
                 bulletsCountLeft -= 1
@@ -110,7 +115,6 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_SPACE] and shootLoop == 0:
-
             if man.left:
                 facing = -1
             else:
@@ -139,13 +143,11 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
             man.left = True
             man.right = False
             man.standing = False
-
         elif keys[pygame.K_RIGHT] and man.x < SCREEN_WIDTH - man.width - man.vel:
             man.x += man.vel
             man.right = True
             man.left = False
             man.standing = False
-
         else:
             man.standing = True
             man.walkCount = 0
@@ -154,7 +156,6 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
             if keys[pygame.K_UP]:
                 man.isJump = True
                 man.walkCount = 0
-
         else:
             if man.jumpCount >= -11:
                 neg = 1
