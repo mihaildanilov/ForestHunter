@@ -4,7 +4,7 @@ import random
 import sys
 import assets
 from enemy import Enemy
-from game_functions import redrawGameWindow
+from game_functions import draw_text, redrawGameWindow
 from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -39,16 +39,6 @@ score = 0
 bulletsCountLeft = 5
 allBullets = 695
 click = False
-
-
-
-
-def draw_text(text, font, color, surface, x, y):
-    obj = font.render(text, 1, color)
-    rect = obj.get_rect()
-    rect.topleft = (x, y)
-    surface.blit(obj, rect)
-
 
 def fade():
     fade = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))

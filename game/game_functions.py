@@ -15,3 +15,11 @@ def redrawGameWindow(win,font,score, bulletsCountLeft, allBullets,man,enemy,bull
         bullet.draw(win)
 
     pygame.display.update()
+
+
+
+def draw_text(text, font, color, surface, x, y):
+    obj = font.render(text, 1, color)
+    rect = obj.get_rect()
+    rect.topleft = (x, y)
+    surface.blit(obj, rect)
