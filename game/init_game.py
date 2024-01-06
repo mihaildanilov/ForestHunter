@@ -8,7 +8,7 @@ win = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 icon = assets.load_image("sprites/icon/robe5.png")
 pygame.display.set_icon(icon)
-pygame.display.set_caption("Forest hunter")
+pygame.display.set_caption("Forest Hunter")
 
 main_font = assets.load_fonts()['main_font']
 comicsans = assets.load_fonts()['comicsans']
