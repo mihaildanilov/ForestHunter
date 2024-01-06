@@ -2,9 +2,8 @@ import pygame
 import sys
 import random
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from utils import draw_text, fade, fadeStart, redrawGameWindow
+from utils import  fade, redrawGameWindow
 from mechanics.projectile import Projectile
-from assets import assets
 from entities.enemy import Enemy
 from init_game import win, mainClock, comicsans, bg,  sprites, hitSound
 from entities.player import Player
@@ -14,7 +13,6 @@ def game_loop(enemyPick, score, bulletsCountLeft,allBullets):
     bullets = []
     shootLoop = 0
     
-
     # Randomly choosen spawn points within these ranges
     player_spawn_range = (50, SCREEN_WIDTH // 4)
     enemy_spawn_range = [SCREEN_WIDTH // 4 + 100, SCREEN_WIDTH - 200]
