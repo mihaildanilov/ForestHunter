@@ -7,8 +7,6 @@ from settings import SCREEN_WIDTH
 from init_game import win, mainClock, main_font, comicsans, bg, mainMenuBg, sprites, hitSound
 from game.game_loop import game_loop
 
-bulletsCountLeft = 5
-allBullets = 695
 
 def main_menu():
     enemyPick = 1
