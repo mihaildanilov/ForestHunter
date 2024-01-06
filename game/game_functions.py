@@ -23,3 +23,12 @@ def draw_text(text, font, color, surface, x, y):
     rect = obj.get_rect()
     rect.topleft = (x, y)
     surface.blit(obj, rect)
+
+def fade(win):
+    fade = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    fade.fill((0, 0, 0))
+    for alpha in range(0, 255):
+        fade.set_alpha(alpha)
+        win.blit(fade, (0, 0))
+        pygame.display.update()
+        pygame.time.delay(7)

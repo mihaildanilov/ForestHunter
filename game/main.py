@@ -4,7 +4,7 @@ import random
 import sys
 import assets
 from enemy import Enemy
-from game_functions import draw_text, redrawGameWindow
+from game_functions import draw_text, fade, redrawGameWindow
 from player import Player
 from projectile import Projectile
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
@@ -39,16 +39,6 @@ score = 0
 bulletsCountLeft = 5
 allBullets = 695
 click = False
-
-def fade():
-    fade = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-    fade.fill((0, 0, 0))
-    for alpha in range(0, 255):
-        fade.set_alpha(alpha)
-        win.blit(fade, (0, 0))
-        pygame.display.update()
-        pygame.time.delay(7)
-
 
 def fadeStart():
     fadeStart = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -85,12 +75,12 @@ def credits():
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
-                fade()
+                fade(win)
 
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    fade()
+                    fade(win)
                     running = False
 
         pygame.display.update()
@@ -121,18 +111,18 @@ def main_menu():
 
         if button_1.collidepoint((mx, my)):
             if click:
-                fade()
+                fade(win)
                 game()
 
         if button_2.collidepoint((mx, my)):
             if click:
-                fade()
+                fade(win)
                 credits()
                 fadeStart()
 
         if button_3.collidepoint((mx, my)):
             if click:
-                fade()
+                fade(win)
                 main_menuRunning = False
                 pygame.quit()
                 sys.exit()
@@ -145,12 +135,12 @@ def main_menu():
         click = False
         for event in pygame.event.get():
             if event.type == QUIT:
-                fade()
+                fade(win)
                 pygame.quit()
                 sys.exit()
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    fade()
+                    fade(win)
                     pygame.quit()
                     sys.exit()
             if event.type == MOUSEBUTTONDOWN:
@@ -210,7 +200,7 @@ def game():
             allBullets = 695
             enemyPick = 0
             score = 0
-            fade()
+            fade(win)
             # pygame.time.delay(3000)
             run = False
 
@@ -231,7 +221,7 @@ def game():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                fade()
+                fade(win)
                 pygame.quit()
                 sys.exit()
 
