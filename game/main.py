@@ -3,8 +3,8 @@ import pygame
 import random
 import sys
 import assets.assets as assets
-from characters.enemy import Enemy
-from characters.player import Player
+from entities.enemy import Enemy
+from entities.player import Player
 from screens.credits import credits_screen
 from game_functions import draw_text, fade, fadeStart, redrawGameWindow
 from projectile import Projectile
