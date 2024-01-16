@@ -2,7 +2,7 @@ import pygame
 import sys
 from pygame.locals import *
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from utils import fade, draw_text
+from utils.utility_functions import fade, draw_text
 
 
 def credits_screen(win, font, mainClock):

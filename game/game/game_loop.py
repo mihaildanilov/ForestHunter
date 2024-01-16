@@ -2,7 +2,7 @@ import pygame
 import sys
 import random
 from settings import SCREEN_WIDTH, SCREEN_HEIGHT
-from utils import fade, redrawGameWindow
+from utils.utility_functions import fade, redrawGameWindow
 from mechanics.projectile import Projectile
 from entities.enemy import Enemy
 from init_game import win, mainClock, comicsans, bg, sprites, hitSound
@@ -29,8 +29,8 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
     shootLoop = 0
 
     # Randomly choosen spawn points within these ranges
-    player_spawn_range = (50, SCREEN_WIDTH // 4)
-    enemy_spawn_range = [SCREEN_WIDTH // 4 + 100, SCREEN_WIDTH - 200]
+    player_spawn_range = [50, 100]
+    enemy_spawn_range = [ 120, SCREEN_WIDTH - 200]
     player_x = random.randrange(*player_spawn_range)
     enemy_x = random.randrange(*enemy_spawn_range)
     enemyPathInPx = enemy_x + 200
