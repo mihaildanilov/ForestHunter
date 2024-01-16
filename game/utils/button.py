@@ -5,7 +5,7 @@ class Button:
         """
         Initialize a Button object.
 
-        Parameters:
+        Args:
         - x (int): The x-coordinate of the button's top-left corner.
         - y (int): The y-coordinate of the button's top-left corner.
         - width (int): The width of the button.
@@ -29,7 +29,7 @@ class Button:
         """
         Draw the button on the given surface.
 
-        Parameters:
+        Args:
         - win (pygame.Surface): The surface on which the button will be drawn.
         """
         mouse_pos = pygame.mouse.get_pos()
