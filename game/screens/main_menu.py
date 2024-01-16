@@ -25,7 +25,7 @@ def main_menu():
     Returns:
     None
     """
-    enemyPick = 6
+    enemyPick = 1
     score = 0
     bulletsCountLeft = 5
     allBullets = 695
