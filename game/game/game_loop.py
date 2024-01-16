@@ -110,7 +110,6 @@ def game_loop(enemyPick, score, bulletsCountLeft, allBullets):
             else:
                 bullets.pop(bullets.index(bullet))
                 bulletsCountLeft -= 1
-                bulletsCountLeft = 5
 
         keys = pygame.key.get_pressed()
 
